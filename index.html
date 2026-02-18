@@ -1,228 +1,500 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Development & Design</title>
-    <style>
-        :root {
-            --bg: #ffffff;
-            --text: #000000;
-            --secondary: #666666;
-            --border: #eeeeee;
-            --mono: 'SF Mono', 'Fira Code', 'Menlo', monospace;
-            --sans: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nurly — Available for Projects</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        * { box-sizing: border-box; }
+  :root {
+    --bg: #ffffff;
+    --text: #0a0a0a;
+    --muted: #888;
+    --border: #e0e0e0;
+    --term-bg: #0a0a0a;
+    --term-text: #f0f0f0;
+    --term-muted: #555;
+    --term-green: #c8f0c8;
+    --font: 'DM Sans', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
 
-        body {
-            margin: 0;
-            font-family: var(--sans);
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-        }
+  html { scroll-behavior: smooth; }
 
-        .dots-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
-            background-size: 32px 32px;
-            z-index: -1;
-        }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
 
-        .container {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 100px 30px;
-        }
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
 
-        header {
-            margin-bottom: 80px;
-        }
+  /* NAV */
+  nav {
+    padding: 28px 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+    animation: up 0.6s ease forwards;
+  }
 
-        .tag-lab {
-            font-family: var(--mono);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            background: #000;
-            color: #fff;
-            padding: 4px 12px;
-            display: inline-block;
-            margin-bottom: 30px;
-        }
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
 
-        h1 {
-            font-size: clamp(32px, 8vw, 56px);
-            font-weight: 500;
-            letter-spacing: -2px;
-            margin: 0;
-            line-height: 0.9;
-            min-height: 1.1em;
-        }
+  .nav-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--text);
+  }
 
-        .cursor {
-            display: inline-block;
-            width: 12px;
-            height: 0.8em;
-            background-color: #000;
-            margin-left: 5px;
-            vertical-align: middle;
-            animation: blink 1s infinite;
-        }
+  /* LANG TOGGLE */
+  .lang-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+  .lang-btn {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    transition: background 0.2s, color 0.2s;
+  }
 
-        .description {
-            font-size: 20px;
-            color: var(--secondary);
-            margin-top: 30px;
-            max-width: 650px;
-            line-height: 1.4;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-            animation-delay: 1.2s;
-        }
+  .lang-btn.active {
+    background: var(--text);
+    color: var(--bg);
+  }
 
-        section {
-            margin-bottom: 60px;
-            border-top: 1px solid var(--border);
-            padding-top: 40px;
-            opacity: 0;
-            animation: fadeIn 1s forwards;
-            animation-delay: 1.8s;
-        }
+  .nav-badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
 
-        .label {
-            font-family: var(--mono);
-            font-size: 10px;
-            text-transform: uppercase;
-            color: var(--secondary);
-            margin-bottom: 30px;
-            display: block;
-            letter-spacing: 1px;
-        }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text);
+    animation: blink 2s step-end infinite;
+  }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-        }
+  /* HERO */
+  .hero {
+    padding: 72px 0 56px;
+    opacity: 0;
+    animation: up 0.6s ease 0.1s forwards;
+  }
 
-        .grid-item h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin: 0 0 10px 0;
-            font-family: var(--mono);
-        }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
 
-        .grid-item p { font-size: 14px; color: var(--secondary); margin: 0; }
+  h1 {
+    font-size: clamp(2.4rem, 7vw, 4rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
 
-        .stack-flex { display: flex; flex-wrap: wrap; gap: 8px; }
+  h1 strong { font-weight: 500; }
 
-        .stack-tag {
-            font-family: var(--mono);
-            font-size: 12px;
-            border: 1px solid var(--border);
-            padding: 5px 12px;
-            background: #fafafa;
-        }
+  .hero-desc {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.75;
+  }
 
-        .contact-row { display: flex; gap: 24px; margin-top: 40px; }
+  hr { border: none; border-top: 1px solid var(--border); }
 
-        .contact-row a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            font-family: var(--mono);
-            border-bottom: 1px solid var(--border);
-            transition: 0.2s;
-        }
+  /* SECTIONS */
+  section {
+    padding: 52px 0;
+    border-bottom: 1px solid var(--border);
+    opacity: 0;
+  }
 
-        .contact-row a:hover { border-bottom-color: var(--text); }
+  section.show { animation: up 0.6s ease forwards; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
 
-        @media (max-width: 600px) {
-            .container { padding: 60px 20px; }
-            .grid { grid-template-columns: 1fr; }
-            .contact-row { flex-direction: column; gap: 12px; }
-        }
-    </style>
+  /* SERVICE CARDS */
+  .services {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .service-card {
+    background: var(--bg);
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+
+  .service-card:hover { background: #f7f7f7; }
+
+  .service-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .service-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .service-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* TECH STACK */
+  .stack { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    border: 1px solid var(--text);
+    padding: 6px 14px;
+    color: var(--text);
+    transition: background 0.2s, color 0.2s;
+    cursor: default;
+  }
+
+  .tag:hover { background: var(--text); color: var(--bg); }
+
+  /* TERMINAL */
+  .terminal { background: var(--term-bg); overflow: hidden; }
+
+  .term-bar {
+    background: #1a1a1a;
+    padding: 11px 16px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .term-btn { width: 11px; height: 11px; border-radius: 50%; background: #333; }
+
+  .term-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--term-muted);
+    margin: 0 auto;
+    letter-spacing: 0.08em;
+  }
+
+  .term-body {
+    padding: 24px 20px 28px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 2;
+    color: var(--term-text);
+  }
+
+  .term-line { display: flex; gap: 10px; }
+  .prompt { color: #555; user-select: none; }
+  .out { color: var(--term-muted); padding-left: 20px; }
+  .out a { color: var(--term-green); text-decoration: none; }
+  .out a:hover { text-decoration: underline; }
+  .gap { height: 6px; }
+
+  .cursor {
+    display: inline-block;
+    width: 8px; height: 15px;
+    background: var(--term-text);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+    margin-left: 1px;
+  }
+
+  /* CONTACT GRID */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .contact-item {
+    background: var(--bg);
+    padding: 20px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .contact-item:hover { background: var(--text); color: var(--bg); }
+
+  .contact-name { font-size: 0.88rem; font-weight: 500; }
+
+  .contact-handle {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+    transition: color 0.2s;
+  }
+
+  .contact-item:hover .contact-handle { color: rgba(255,255,255,0.45); }
+
+  .arrow { font-size: 18px; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 0 48px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* LANG TRANSITION */
+  [data-en], [data-ru] { transition: opacity 0.2s ease; }
+
+  @keyframes up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  @media (max-width: 560px) {
+    .wrap { padding: 0 18px; }
+    h1 { font-size: 2.2rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 6px; }
+  }
+</style>
 </head>
 <body>
+<div class="wrap">
 
-    <div class="dots-bg"></div>
-
-    <div class="container">
-        <header>
-            <div class="tag-lab">Available for Projects</div>
-            <h1 id="typewriter"></h1>
-            <p class="description">Создаю современные сайты и веб-приложения под ключ. Помогаю бизнесу и экспертам заявить о себе в цифровом пространстве.</p>
-        </header>
-
-        <section>
-            <span class="label">What I Do</span>
-            <div class="grid">
-                <div class="grid-item">
-                    <h3>Frontend Solutions</h3>
-                    <p>Разрабатываю визуальную часть: лендинги, многостраничные сайты и интерфейсы. Делаю их быстрыми и удобными на любых устройствах.</p>
-                </div>
-                <div class="grid-item">
-                    <h3>Backend Systems</h3>
-                    <p>Настраиваю внутреннюю логику: базы данных, формы обратной связи, серверную часть и интеграции с мессенджерами.</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <span class="label">Technologies</span>
-            <div class="stack-flex">
-                <span class="stack-tag">React / Next.js</span>
-                <span class="stack-tag">Node.js</span>
-                <span class="stack-tag">Python</span>
-                <span class="stack-tag">PostgreSQL</span>
-                <span class="stack-tag">HTML5 & CSS3</span>
-            </div>
-        </section>
-
-        <section>
-            <span class="label">Connect</span>
-            <div class="contact-row">
-                <a href="https://t.me/nurlydev" target="_blank">Telegram</a>
-                <a href="https://wa.me/77051922323" target="_blank">WhatsApp</a>
-                <a href="mailto:nurlyomar@icloud.com">Email</a>
-            </div>
-        </section>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-left">
+      <a class="nav-name" href="https://nurlydev.github.io/bio">nurly</a>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('ru')">RU</button>
+      </div>
     </div>
+    <span class="nav-badge">
+      <span class="dot"></span>
+      <span data-en>Available for work</span>
+      <span data-ru style="display:none">Открыт к проектам</span>
+    </span>
+  </nav>
 
-    <script>
-        const text = "[Nurlygazy Omar]";
-        const speed = 100;
-        let i = 0;
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">
+      <span data-en>Web Development &amp; Design</span>
+      <span data-ru style="display:none">Веб-разработка и Дизайн</span>
+    </div>
+    <h1>
+      <span data-en>Open to<br><strong>new projects.</strong></span>
+      <span data-ru style="display:none">Открыт к<br><strong>новым проектам.</strong></span>
+    </h1>
+    <p class="hero-desc">
+      <span data-en>I build modern websites and web applications end-to-end — helping businesses and experts establish a strong digital presence.</span>
+      <span data-ru style="display:none">Создаю современные сайты и веб-приложения под ключ. Помогаю бизнесу и экспертам заявить о себе в цифровом пространстве.</span>
+    </p>
+  </div>
 
-        function typeWriter() {
-            if (i < text.length) {
-                document.getElementById("typewriter").innerHTML += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, speed);
-            } else {
-                document.getElementById("typewriter").innerHTML += '<span class="cursor"></span>';
-            }
-        }
+  <hr />
 
-        window.onload = typeWriter;
-    </script>
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-label">
+      <span data-en>01 — What I Do</span>
+      <span data-ru style="display:none">01 — Что я делаю</span>
+    </div>
+    <div class="services">
+      <div class="service-card">
+        <div class="service-num">Frontend</div>
+        <div class="service-title">
+          <span data-en>Visual &amp; Interface</span>
+          <span data-ru style="display:none">Визуал и интерфейс</span>
+        </div>
+        <div class="service-desc">
+          <span data-en>Landing pages, multi-page sites, and UI components. Fast, responsive, and clean on any device.</span>
+          <span data-ru style="display:none">Лендинги, многостраничные сайты и интерфейсы. Быстрые, адаптивные и удобные на любых устройствах.</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">Backend</div>
+        <div class="service-title">
+          <span data-en>Logic &amp; Systems</span>
+          <span data-ru style="display:none">Логика и системы</span>
+        </div>
+        <div class="service-desc">
+          <span data-en>Databases, feedback forms, server-side logic, and integrations with messengers and external APIs.</span>
+          <span data-ru style="display:none">Базы данных, формы обратной связи, серверная логика и интеграции с мессенджерами и внешними API.</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- STACK -->
+  <section id="stack">
+    <div class="section-label">
+      <span data-en>02 — Technologies</span>
+      <span data-ru style="display:none">02 — Технологии</span>
+    </div>
+    <div class="stack">
+      <div class="tag">React</div>
+      <div class="tag">Next.js</div>
+      <div class="tag">Node.js</div>
+      <div class="tag">Python</div>
+      <div class="tag">PostgreSQL</div>
+      <div class="tag">HTML5</div>
+      <div class="tag">CSS3</div>
+    </div>
+  </section>
+
+  <!-- TERMINAL -->
+  <section id="terminal">
+    <div class="section-label">
+      <span data-en>03 — Terminal</span>
+      <span data-ru style="display:none">03 — Терминал</span>
+    </div>
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="term-btn"></div>
+        <div class="term-btn"></div>
+        <div class="term-btn"></div>
+        <span class="term-title">nurly@dev ~ bash</span>
+      </div>
+      <div class="term-body">
+        <div class="term-line"><span class="prompt">~$</span><span>status</span></div>
+        <div class="out">available_for_work=true &nbsp;·&nbsp; location=Almaty,KZ</div>
+        <div class="gap"></div>
+        <div class="term-line"><span class="prompt">~$</span><span>cat stack.txt</span></div>
+        <div class="out">React / Next.js / Node.js / Python / PostgreSQL</div>
+        <div class="gap"></div>
+        <div class="term-line"><span class="prompt">~$</span><span>ls contact/</span></div>
+        <div class="out">→ <a href="https://t.me/nurlydev" target="_blank">t.me/nurlydev</a></div>
+        <div class="out">→ <a href="https://wa.me/77051922323" target="_blank">wa.me/77051922323</a></div>
+        <div class="out">→ <a href="mailto:nurlyomar@icloud.com">nurlyomar@icloud.com</a></div>
+        <div class="gap"></div>
+        <div class="term-line"><span class="prompt">~$</span><span class="cursor"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="border-bottom:none;padding-bottom:0">
+    <div class="section-label">
+      <span data-en>04 — Connect</span>
+      <span data-ru style="display:none">04 — Связаться</span>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-item" href="https://t.me/nurlydev" target="_blank">
+        <div>
+          <div class="contact-name">Telegram</div>
+          <div class="contact-handle">@nurlydev</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="contact-item" href="https://wa.me/77051922323" target="_blank">
+        <div>
+          <div class="contact-name">WhatsApp</div>
+          <div class="contact-handle">+7 705 192 23 23</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="contact-item" href="mailto:nurlyomar@icloud.com">
+        <div>
+          <div class="contact-name">Email</div>
+          <div class="contact-handle">nurlyomar@icloud.com</div>
+        </div>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Nurly © 2025</span>
+    <span>
+      <span data-en>Available for projects · Almaty</span>
+      <span data-ru style="display:none">Открыт к проектам · Алматы</span>
+    </span>
+  </footer>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    document.querySelectorAll('[data-en]').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
+    document.querySelectorAll('[data-ru]').forEach(el => el.style.display = lang === 'ru' ? '' : 'none');
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+    document.documentElement.lang = lang;
+  }
+
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('section').forEach(s => io.observe(s));
+</script>
 </body>
 </html>
