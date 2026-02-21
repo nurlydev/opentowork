@@ -1,402 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Nurly — Available for Projects</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080810;--surface:#0e0e1a;--surface2:#13131f;
+  --border:#1e1e30;--border2:#252538;
+  --text:#e8e8f0;--muted:#6b6b80;--dim:#3a3a50;
+  --accent:#8b5cf6;--accent2:#6366f1;--accent3:#a78bfa;
+  --green:#34d399;--pink:#e879f9;
+  --font:'Geist',system-ui,sans-serif;--mono:'Geist Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:48px 48px;opacity:.35;pointer-events:none;z-index:0}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.orb1{width:500px;height:500px;background:rgba(139,92,246,.12);top:-120px;right:-80px}
+.orb2{width:380px;height:380px;background:rgba(99,102,241,.08);bottom:-60px;left:-80px}
+.orb3{width:280px;height:280px;background:rgba(232,121,249,.05);top:50%;left:50%;transform:translate(-50%,-50%)}
+.wrap{max-width:700px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
 
-  :root {
-    --bg: #ffffff;
-    --text: #0a0a0a;
-    --muted: #888;
-    --border: #e0e0e0;
-    --term-bg: #0a0a0a;
-    --term-text: #f0f0f0;
-    --term-muted: #555;
-    --term-green: #c8f0c8;
-    --font: 'DM Sans', sans-serif;
-    --mono: 'JetBrains Mono', monospace;
-  }
+/* NAV */
+nav{padding:24px 0;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);opacity:0;animation:up .6s ease forwards}
+.nav-left{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:13px;font-weight:500;color:var(--text);text-decoration:none}
+.logo-mark{width:28px;height:28px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:6px;display:grid;place-items:center;font-size:13px;font-weight:600;color:#fff}
+.nav-right{display:flex;align-items:center;gap:10px}
+.status-pill{display:flex;align-items:center;gap:6px;border:1px solid var(--border2);background:var(--surface);padding:5px 12px;border-radius:100px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s ease infinite}
+.lang-switch{display:flex;gap:2px;border:1px solid var(--border2);border-radius:8px;overflow:hidden;background:var(--surface)}
+.lang-btn{font-family:var(--mono);font-size:11px;padding:5px 10px;color:var(--muted);background:transparent;border:none;cursor:pointer;transition:all .2s;letter-spacing:.06em}
+.lang-btn.active{background:rgba(139,92,246,.2);color:var(--accent3)}
+.lang-btn:hover:not(.active){color:var(--text)}
 
-  html { scroll-behavior: smooth; }
+/* HERO */
+.hero{padding:88px 0 72px;opacity:0;animation:up .7s ease .1s forwards}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border2);background:var(--surface);padding:6px 14px;border-radius:100px;font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:28px}
+.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+h1{font-size:clamp(2.2rem,6.5vw,3.6rem);font-weight:600;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px}
+.gradient-text{background:linear-gradient(135deg,#fff 20%,var(--accent3),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:460px;line-height:1.8;margin-bottom:36px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;transition:all .2s ease;border:none;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 0 20px rgba(139,92,246,.25)}
+.btn-primary:hover{box-shadow:0 0 32px rgba(139,92,246,.45);transform:translateY(-1px)}
+.btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:var(--dim);background:var(--surface2)}
+.divider{border:none;border-top:1px solid var(--border)}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font);
-    font-size: 15px;
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-  }
+/* SECTIONS */
+section{padding:56px 0;border-bottom:1px solid var(--border);opacity:0}
+section.show{animation:up .6s ease forwards}
+.section-label{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
-  .wrap {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 28px;
-  }
+/* SERVICE CARDS */
+.services{display:grid;gap:10px}
+.svc{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:28px 26px;transition:all .25s ease;position:relative;overflow:hidden}
+.svc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s}
+.svc:hover{border-color:rgba(139,92,246,.4);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.svc:hover::before{opacity:1}
+.svc-icon{width:36px;height:36px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.2);border-radius:8px;display:grid;place-items:center;font-size:16px;margin-bottom:16px}
+.svc-label{font-family:var(--mono);font-size:10px;color:var(--accent3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.svc-title{font-size:1rem;font-weight:500;margin-bottom:8px}
+.svc-desc{font-size:.87rem;color:var(--muted);line-height:1.7}
 
-  /* NAV */
-  nav {
-    padding: 28px 0 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border);
-    opacity: 0;
-    animation: up 0.6s ease forwards;
-  }
+/* TAGS */
+.stack{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.04em;border:1px solid var(--border2);background:var(--surface);color:var(--muted);padding:7px 14px;border-radius:6px;transition:all .2s;cursor:default}
+.tag:hover{border-color:var(--accent);color:var(--accent3);background:rgba(139,92,246,.08)}
 
-  .nav-left {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
+/* TERMINAL */
+.terminal{background:#050508;border:1px solid var(--border2);border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px rgba(139,92,246,.05),0 20px 60px rgba(0,0,0,.5)}
+.term-bar{background:#0a0a12;border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:8px}
+.tb{width:12px;height:12px;border-radius:50%}
+.tb1{background:#ff5f57}.tb2{background:#febc2e}.tb3{background:#28c840}
+.term-title{font-family:var(--mono);font-size:11px;color:var(--dim);margin:0 auto;letter-spacing:.06em}
+.term-body{padding:24px 20px 28px;font-family:var(--mono);font-size:12.5px;line-height:2}
+.tl{display:flex;gap:10px;align-items:baseline}
+.tp{color:var(--accent);user-select:none}.tc{color:var(--text)}
+.to{color:var(--muted);padding-left:22px;display:block}
+.tk{color:var(--accent3)}.tv{color:var(--pink)}.tg{height:4px}
+.ta{color:var(--green);text-decoration:none}.ta:hover{text-decoration:underline}
+.cursor{display:inline-block;width:8px;height:15px;background:var(--accent3);vertical-align:middle;border-radius:1px;animation:blink 1s step-end infinite;margin-left:1px}
 
-  .nav-name {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    color: var(--text);
-  }
+/* CONTACT */
+.cg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.ci{display:flex;align-items:center;justify-content:space-between;text-decoration:none;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:18px 16px;color:var(--text);transition:all .2s ease}
+.ci:hover{border-color:var(--accent);background:rgba(139,92,246,.06);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.ci-name{font-size:.85rem;font-weight:500;margin-bottom:2px}
+.ci-handle{font-family:var(--mono);font-size:10px;color:var(--muted);transition:color .2s}
+.ci:hover .ci-handle{color:var(--accent3)}
+.ci-arrow{font-size:16px;color:var(--dim);transition:color .2s,transform .2s}
+.ci:hover .ci-arrow{color:var(--accent3);transform:translate(2px,-2px)}
 
-  /* LANG TOGGLE */
-  .lang-toggle {
-    display: flex;
-    border: 1px solid var(--border);
-    overflow: hidden;
-  }
+footer{padding:32px 0 52px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.06em}
 
-  .lang-btn {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    padding: 5px 10px;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    transition: background 0.2s, color 0.2s;
-  }
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
 
-  .lang-btn.active {
-    background: var(--text);
-    color: var(--bg);
-  }
-
-  .nav-badge {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--text);
-    animation: blink 2s step-end infinite;
-  }
-
-  /* HERO */
-  .hero {
-    padding: 72px 0 56px;
-    opacity: 0;
-    animation: up 0.6s ease 0.1s forwards;
-  }
-
-  .hero-tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  h1 {
-    font-size: clamp(2.4rem, 7vw, 4rem);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    margin-bottom: 24px;
-  }
-
-  h1 strong { font-weight: 500; }
-
-  .hero-desc {
-    font-size: 1rem;
-    color: var(--muted);
-    max-width: 480px;
-    line-height: 1.75;
-  }
-
-  hr { border: none; border-top: 1px solid var(--border); }
-
-  /* SECTIONS */
-  section {
-    padding: 52px 0;
-    border-bottom: 1px solid var(--border);
-    opacity: 0;
-  }
-
-  section.show { animation: up 0.6s ease forwards; }
-
-  .section-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 28px;
-  }
-
-  /* SERVICE CARDS */
-  .services {
-    display: grid;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .service-card {
-    background: var(--bg);
-    padding: 28px 24px;
-    transition: background 0.2s;
-  }
-
-  .service-card:hover { background: #f7f7f7; }
-
-  .service-num {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-    margin-bottom: 12px;
-  }
-
-  .service-title {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 10px;
-  }
-
-  .service-desc {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  /* TECH STACK */
-  .stack { display: flex; flex-wrap: wrap; gap: 8px; }
-
-  .tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    border: 1px solid var(--text);
-    padding: 6px 14px;
-    color: var(--text);
-    transition: background 0.2s, color 0.2s;
-    cursor: default;
-  }
-
-  .tag:hover { background: var(--text); color: var(--bg); }
-
-  /* TERMINAL */
-  .terminal { background: var(--term-bg); overflow: hidden; }
-
-  .term-bar {
-    background: #1a1a1a;
-    padding: 11px 16px;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-
-  .term-btn { width: 11px; height: 11px; border-radius: 50%; background: #333; }
-
-  .term-title {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--term-muted);
-    margin: 0 auto;
-    letter-spacing: 0.08em;
-  }
-
-  .term-body {
-    padding: 24px 20px 28px;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    line-height: 2;
-    color: var(--term-text);
-  }
-
-  .term-line { display: flex; gap: 10px; }
-  .prompt { color: #555; user-select: none; }
-  .out { color: var(--term-muted); padding-left: 20px; }
-  .out a { color: var(--term-green); text-decoration: none; }
-  .out a:hover { text-decoration: underline; }
-  .gap { height: 6px; }
-
-  .cursor {
-    display: inline-block;
-    width: 8px; height: 15px;
-    background: var(--term-text);
-    vertical-align: middle;
-    animation: blink 1s step-end infinite;
-    margin-left: 1px;
-  }
-
-  /* CONTACT GRID */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .contact-item {
-    background: var(--bg);
-    padding: 20px;
-    text-decoration: none;
-    color: var(--text);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  .contact-item:hover { background: var(--text); color: var(--bg); }
-
-  .contact-name { font-size: 0.88rem; font-weight: 500; }
-
-  .contact-handle {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    margin-top: 2px;
-    transition: color 0.2s;
-  }
-
-  .contact-item:hover .contact-handle { color: rgba(255,255,255,0.45); }
-
-  .arrow { font-size: 18px; }
-
-  /* FOOTER */
-  footer {
-    padding: 32px 0 48px;
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-  }
-
-  /* LANG TRANSITION */
-  [data-en], [data-ru] { transition: opacity 0.2s ease; }
-
-  @keyframes up {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
-  }
-
-  @media (max-width: 560px) {
-    .wrap { padding: 0 18px; }
-    h1 { font-size: 2.2rem; }
-    .contact-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 6px; }
-  }
+@media(max-width:560px){
+  .wrap{padding:0 18px}
+  h1{font-size:2rem}
+  .cg{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:8px;align-items:flex-start}
+  .hero-actions{flex-direction:column}
+  .btn{justify-content:center}
+  .status-pill{display:none}
+}
 </style>
 </head>
 <body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
 <div class="wrap">
 
   <!-- NAV -->
   <nav>
-    <div class="nav-left">
-      <a class="nav-name" href="https://nurlydev.github.io/bio">nurly</a>
-      <div class="lang-toggle">
+    <a class="nav-left" href="nurly-bio.html">
+      <div class="logo-mark">N</div>
+      nurly
+    </a>
+    <div class="nav-right">
+      <div class="status-pill"><span class="status-dot"></span><span data-en="available for projects" data-ru="доступен для проектов">available for projects</span></div>
+      <div class="lang-switch">
         <button class="lang-btn active" onclick="setLang('en')">EN</button>
         <button class="lang-btn" onclick="setLang('ru')">RU</button>
       </div>
     </div>
-    <span class="nav-badge">
-      <span class="dot"></span>
-      <span data-en>Available for work</span>
-      <span data-ru style="display:none">Открыт к проектам</span>
-    </span>
   </nav>
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-tag">
-      <span data-en>Web Development &amp; Design</span>
-      <span data-ru style="display:none">Веб-разработка и Дизайн</span>
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      <span data-en="Web Development &amp; Design · Almaty, KZ" data-ru="Веб-разработка и Дизайн · Алматы, КЗ">Web Development &amp; Design · Almaty, KZ</span>
     </div>
     <h1>
-      <span data-en>Open to<br><strong>new projects.</strong></span>
-      <span data-ru style="display:none">Открыт к<br><strong>новым проектам.</strong></span>
+      <span data-en="Let's build" data-ru="Давайте создадим">Let's build</span><br>
+      <span class="gradient-text" data-en="something great." data-ru="что-то крутое.">something great.</span>
     </h1>
-    <p class="hero-desc">
-      <span data-en>I build modern websites and web applications end-to-end — helping businesses and experts establish a strong digital presence.</span>
-      <span data-ru style="display:none">Создаю современные сайты и веб-приложения под ключ. Помогаю бизнесу и экспертам заявить о себе в цифровом пространстве.</span>
+    <p class="hero-sub" data-en="I create modern websites and web applications end-to-end — helping businesses and experts make a strong mark in the digital space." data-ru="Создаю современные сайты и веб-приложения под ключ — помогаю бизнесу и экспертам заявить о себе в цифровом пространстве.">
+      I create modern websites and web applications end-to-end — helping businesses and experts make a strong mark in the digital space.
     </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://t.me/nurlydev" target="_blank"><span data-en="↗ Write on Telegram" data-ru="↗ Написать в Telegram">↗ Write on Telegram</span></a>
+      <a class="btn btn-ghost" href="mailto:nurlyomar@icloud.com" data-en="Email me" data-ru="Написать письмо">Email me</a>
+    </div>
   </div>
 
-  <hr />
+  <div class="divider"></div>
 
   <!-- SERVICES -->
   <section id="services">
-    <div class="section-label">
-      <span data-en>01 — What I Do</span>
-      <span data-ru style="display:none">01 — Что я делаю</span>
-    </div>
+    <div class="section-label" data-en="What I Do" data-ru="Что я делаю">What I Do</div>
     <div class="services">
-      <div class="service-card">
-        <div class="service-num">Frontend</div>
-        <div class="service-title">
-          <span data-en>Visual &amp; Interface</span>
-          <span data-ru style="display:none">Визуал и интерфейс</span>
-        </div>
-        <div class="service-desc">
-          <span data-en>Landing pages, multi-page sites, and UI components. Fast, responsive, and clean on any device.</span>
-          <span data-ru style="display:none">Лендинги, многостраничные сайты и интерфейсы. Быстрые, адаптивные и удобные на любых устройствах.</span>
-        </div>
+      <div class="svc">
+        <div class="svc-icon">⬡</div>
+        <div class="svc-label">Frontend</div>
+        <div class="svc-title" data-en="Visual &amp; Interface" data-ru="Визуал и Интерфейс">Visual &amp; Interface</div>
+        <div class="svc-desc" data-en="Landing pages, multi-page sites and UI components. Fast, responsive and clean on any device." data-ru="Лендинги, многостраничные сайты и UI-компоненты. Быстрые и удобные на любых устройствах.">Landing pages, multi-page sites and UI components. Fast, responsive and clean on any device.</div>
       </div>
-      <div class="service-card">
-        <div class="service-num">Backend</div>
-        <div class="service-title">
-          <span data-en>Logic &amp; Systems</span>
-          <span data-ru style="display:none">Логика и системы</span>
-        </div>
-        <div class="service-desc">
-          <span data-en>Databases, feedback forms, server-side logic, and integrations with messengers and external APIs.</span>
-          <span data-ru style="display:none">Базы данных, формы обратной связи, серверная логика и интеграции с мессенджерами и внешними API.</span>
-        </div>
+      <div class="svc">
+        <div class="svc-icon">⚙</div>
+        <div class="svc-label">Backend</div>
+        <div class="svc-title" data-en="Logic &amp; Systems" data-ru="Логика и Системы">Logic &amp; Systems</div>
+        <div class="svc-desc" data-en="Databases, feedback forms, server-side logic and integrations with messengers and external APIs." data-ru="Базы данных, формы обратной связи, серверная логика и интеграции с мессенджерами и API.">Databases, feedback forms, server-side logic and integrations with messengers and external APIs.</div>
       </div>
     </div>
   </section>
 
   <!-- STACK -->
   <section id="stack">
-    <div class="section-label">
-      <span data-en>02 — Technologies</span>
-      <span data-ru style="display:none">02 — Технологии</span>
-    </div>
+    <div class="section-label" data-en="Technologies" data-ru="Технологии">Technologies</div>
     <div class="stack">
       <div class="tag">React</div>
       <div class="tag">Next.js</div>
@@ -410,91 +193,84 @@
 
   <!-- TERMINAL -->
   <section id="terminal">
-    <div class="section-label">
-      <span data-en>03 — Terminal</span>
-      <span data-ru style="display:none">03 — Терминал</span>
-    </div>
+    <div class="section-label">Terminal</div>
     <div class="terminal">
       <div class="term-bar">
-        <div class="term-btn"></div>
-        <div class="term-btn"></div>
-        <div class="term-btn"></div>
-        <span class="term-title">nurly@dev ~ bash</span>
+        <div class="tb tb1"></div><div class="tb tb2"></div><div class="tb tb3"></div>
+        <span class="term-title">nurly@dev — bash</span>
       </div>
       <div class="term-body">
-        <div class="term-line"><span class="prompt">~$</span><span>status</span></div>
-        <div class="out">available_for_work=true &nbsp;·&nbsp; location=Almaty,KZ</div>
-        <div class="gap"></div>
-        <div class="term-line"><span class="prompt">~$</span><span>cat stack.txt</span></div>
-        <div class="out">React / Next.js / Node.js / Python / PostgreSQL</div>
-        <div class="gap"></div>
-        <div class="term-line"><span class="prompt">~$</span><span>ls contact/</span></div>
-        <div class="out">→ <a href="https://t.me/nurlydev" target="_blank">t.me/nurlydev</a></div>
-        <div class="out">→ <a href="https://wa.me/77051922323" target="_blank">wa.me/77051922323</a></div>
-        <div class="out">→ <a href="mailto:nurlyomar@icloud.com">nurlyomar@icloud.com</a></div>
-        <div class="gap"></div>
-        <div class="term-line"><span class="prompt">~$</span><span class="cursor"></span></div>
+        <div class="tl"><span class="tp">~/</span><span class="tc">status</span></div>
+        <span class="to"><span class="tk">AVAILABLE</span>=<span class="tv">true</span> &nbsp;·&nbsp; <span class="tk">LOCATION</span>=<span class="tv">"Almaty, KZ"</span></span>
+        <div class="tg"></div>
+        <div class="tl"><span class="tp">~/</span><span class="tc">cat stack.json</span></div>
+        <span class="to">{ <span class="tk">"frontend"</span>: <span class="tv">"React, Next.js"</span>,</span>
+        <span class="to">&nbsp;&nbsp;<span class="tk">"backend"</span>: <span class="tv">"Node.js, Python, PostgreSQL"</span> }</span>
+        <div class="tg"></div>
+        <div class="tl"><span class="tp">~/</span><span class="tc">ls contact/</span></div>
+        <span class="to">→ <a class="ta" href="https://t.me/nurlydev" target="_blank">t.me/nurlydev</a></span>
+        <span class="to">→ <a class="ta" href="https://wa.me/77051922323" target="_blank">wa.me/77051922323</a></span>
+        <span class="to">→ <a class="ta" href="mailto:nurlyomar@icloud.com">nurlyomar@icloud.com</a></span>
+        <div class="tg"></div>
+        <div class="tl"><span class="tp">~/</span><span class="cursor"></span></div>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- CONNECT -->
   <section id="contact" style="border-bottom:none;padding-bottom:0">
-    <div class="section-label">
-      <span data-en>04 — Connect</span>
-      <span data-ru style="display:none">04 — Связаться</span>
-    </div>
-    <div class="contact-grid">
-      <a class="contact-item" href="https://t.me/nurlydev" target="_blank">
+    <div class="section-label" data-en="Connect" data-ru="Связаться">Connect</div>
+    <div class="cg">
+      <a class="ci" href="https://t.me/nurlydev" target="_blank">
         <div>
-          <div class="contact-name">Telegram</div>
-          <div class="contact-handle">@nurlydev</div>
+          <div class="ci-name">Telegram</div>
+          <div class="ci-handle">@nurlydev</div>
         </div>
-        <span class="arrow">↗</span>
+        <span class="ci-arrow">↗</span>
       </a>
-      <a class="contact-item" href="https://wa.me/77051922323" target="_blank">
+      <a class="ci" href="https://wa.me/77051922323" target="_blank">
         <div>
-          <div class="contact-name">WhatsApp</div>
-          <div class="contact-handle">+7 705 192 23 23</div>
+          <div class="ci-name">WhatsApp</div>
+          <div class="ci-handle">+7 705 192 23 23</div>
         </div>
-        <span class="arrow">↗</span>
+        <span class="ci-arrow">↗</span>
       </a>
-      <a class="contact-item" href="mailto:nurlyomar@icloud.com">
+      <a class="ci" href="mailto:nurlyomar@icloud.com">
         <div>
-          <div class="contact-name">Email</div>
-          <div class="contact-handle">nurlyomar@icloud.com</div>
+          <div class="ci-name">Email</div>
+          <div class="ci-handle">nurlyomar@icloud.com</div>
         </div>
-        <span class="arrow">↗</span>
+        <span class="ci-arrow">↗</span>
       </a>
     </div>
   </section>
 
   <footer>
     <span>Nurly © 2025</span>
-    <span>
-      <span data-en>Available for projects · Almaty</span>
-      <span data-ru style="display:none">Открыт к проектам · Алматы</span>
-    </span>
+    <span data-en="Available for projects · Almaty" data-ru="Открыт для проектов · Алматы">Available for projects · Almaty</span>
   </footer>
 
 </div>
 
 <script>
-  function setLang(lang) {
-    document.querySelectorAll('[data-en]').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
-    document.querySelectorAll('[data-ru]').forEach(el => el.style.display = lang === 'ru' ? '' : 'none');
-    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
-    document.documentElement.lang = lang;
-  }
+function setLang(lang) {
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (val !== null) el.innerHTML = val;
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.documentElement.lang = lang;
+  localStorage.setItem('lang', lang);
+}
 
-  // Scroll reveal
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('section').forEach(s => io.observe(s));
+const saved = localStorage.getItem('lang');
+if (saved && saved !== 'en') setLang(saved);
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('section').forEach(s => io.observe(s));
 </script>
 </body>
 </html>
